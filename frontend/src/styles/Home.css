@@ -1,10 +1,17 @@
 .homepage {
-
 }
 
 .first-page {
     background-image: url('../assets/bkgd1.png');
+}
 
+.title {
+    font-family: "FatFrank_Heavy";
+    letter-spacing: 2px;
+    font-size: 10vh;
+    color: white;
+    text-align: center;
+    padding-top: 20vh;
 }
 .second-page {
     background-image: url('../assets/bkgd2.png');
@@ -25,7 +32,7 @@
     height: 100vh;
 }
 
-.title {
+.webcam {
     padding-top: 20vh;
 }
 

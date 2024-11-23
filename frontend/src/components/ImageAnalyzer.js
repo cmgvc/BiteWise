@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as tmImage from '@teachablemachine/image';
 import '@tensorflow/tfjs';
+import axios from 'axios';
+import { addItemToData } from '../api';
 
 const ImageAnalyzer = () => {
     const [model, setModel] = useState(null);
@@ -129,6 +131,7 @@ const ImageAnalyzer = () => {
             });
         };
     };
+
     const handleChooseItem = () => {
         if (prediction) {
             setChosenItem({
@@ -138,11 +141,16 @@ const ImageAnalyzer = () => {
         }
     };
 
+    const handleSendToApi = () => {
+        if (chosenItem) {
+            addItemToData([chosenItem.className], 'Chloe'); 
+        } else {
+            console.error("No item chosen to send.");
+        }
+    };
+
     return (
         <div>
-            <div>Teachable Machine Image Model</div>
-            
-            {/* Toggle between webcam and manual image upload */}
             <button onClick={() => setIsWebcamActive(!isWebcamActive)}>
                 {isWebcamActive ? 'Switch to Manual Upload' : 'Use Webcam'}
             </button>
@@ -164,7 +172,7 @@ const ImageAnalyzer = () => {
             <div id="label-container" style={{ marginTop: '20px' }}>
                 {prediction ? (
                     <div>
-                        {prediction.className}: {prediction.probability}
+                        {prediction.className}
                     </div>
                 ) : (
                     <div>No predictions yet.</div>
@@ -179,6 +187,7 @@ const ImageAnalyzer = () => {
                     <div>
                         {chosenItem.className}
                     </div>
+                    <button onClick={handleSendToApi}>Send to API</button>
                 </div>
             )}
         </div>
