@@ -1,0 +1,31 @@
+.homepage {
+
+}
+
+.first-page {
+    background-image: url('../assets/bkgd1.png');
+
+}
+.second-page {
+    background-image: url('../assets/bkgd2.png');
+}
+
+.third-page {
+    background-image: url('../assets/bkgd3.png');
+}
+
+.fourth-page {
+    background-image: url('../assets/bkgd4.png');
+}
+
+.first-page, .second-page, .third-page, .fourth-page {
+    background-size: cover; 
+    background-position: center;
+    opacity: 0.9;
+    height: 100vh;
+}
+
+.title {
+    padding-top: 20vh;
+}
+

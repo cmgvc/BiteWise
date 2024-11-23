@@ -1,0 +1,18 @@
+.Nav {
+    position: fixed;
+    background-color: rgb(246, 246, 246);
+    height: 10vh;
+    z-index: 1;
+    opacity: 0.4;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    margin-left: 5vw;
+}
+
+.nav-links {
+}
