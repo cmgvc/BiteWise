@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as tmImage from '@teachablemachine/image';
 import '@tensorflow/tfjs';
 import axios from 'axios';
-import { addItemToData } from '../api';
+import { addItemToData } from '../api.js';
 
 const ImageAnalyzer = () => {
     const [model, setModel] = useState(null);

@@ -6,13 +6,67 @@
 }
 
 .title {
+    flex-direction: column;
+    justify-content: center;
     font-family: "FatFrank_Heavy";
     letter-spacing: 2px;
-    font-size: 10vh;
+    font-size: 12vh;
     color: white;
     text-align: center;
-    padding-top: 20vh;
+    padding-top: 22vh;
 }
+
+.shadow {
+    text-shadow: 1px 8px 0px rgb(90, 15, 177);
+    margin-top: -15vh;
+}
+
+.subtitle {
+    display: flex;
+    justify-content: center;
+    font-family: "Ubuntu";
+    font-size: 3vh;
+    color: rgb(30, 1, 45);
+    padding: 6vh 3vw;
+    text-align: center;
+    margin: 7vh 5vw;
+    scale: 0.9;
+    width: 80vw;
+    background-color: white;
+    border-radius: 50px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
+    transform: translateY(0);
+    box-shadow: none;
+    line-height: 1.5;
+}
+
+.subtitle:hover {
+    transform: translateY(-12px); 
+    box-shadow: 0 10px 1px rgba(71, 0, 115, 0.1); 
+}
+
+.see-foods button {
+    background-color: #EF466F;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    border: none;
+    border-radius: 70px;
+    padding: 2vh 1.6vw;
+    cursor: pointer;
+    scale: 1.1;
+    margin-top: -1vh;
+}
+
+.see-foods button:hover {
+    background-color: #e83d76;
+}
+
+.arrow-down {
+    margin-top: 1vh;
+    font-size: 3vh;
+    color: white;
+}
+
 .second-page {
     background-image: url('../assets/bkgd2.png');
 }
