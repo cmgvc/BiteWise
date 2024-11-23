@@ -1,7 +1,7 @@
 .Nav {
     position: fixed;
     background-color: rgb(246, 246, 246);
-    height: 8vh;
+    height: 4rem;
     z-index: 1;
     opacity: 1;
     margin-top: 2vh;
@@ -41,8 +41,9 @@
     padding: 1.5vh 1vw;
     margin-right: 2vw;
     cursor: pointer;
+    scale: 1.1;
 }
 
 button:hover {
-    background-color: #ff5890;
+    background-color: #e83d76;
 }
