@@ -9,9 +9,8 @@ function Home() {
       <Navbar />
       <div className="first-page">
         <div className="title">
-        <ImageAnalyzer />
-
-          </div>
+            Hi there! Welcome to BiteWise.
+        </div>
       </div>
       <div className="second-page">
 
@@ -19,6 +18,10 @@ function Home() {
       <div className='third-page'>
       </div>
       <div className='fourth-page'>
+      <div className="webcam">
+          <ImageAnalyzer />
+
+            </div>
       </div>
     </div>
   )
