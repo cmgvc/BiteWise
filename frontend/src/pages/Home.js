@@ -20,7 +20,6 @@ function Home() {
         return;
       }
       setIsLoggedIn(true);
-      console.log(data);
       setUsername(data); 
       localStorage.setItem('user', data); 
       setIsModalOpen(false);
