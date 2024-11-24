@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as tmImage from '@teachablemachine/image';
-import '@tensorflow/tfjs';
 import axios from 'axios';
 import { addItemToData } from '../api.js';
 import '../styles/Home.css';
@@ -11,7 +10,10 @@ const ImageAnalyzer = () => {
     const [imageSrc, setImageSrc] = useState(null);
     const [isWebcamActive, setIsWebcamActive] = useState(false);
     const [chosenItem, setChosenItem] = useState(null);
-    const [mode, setMode] = useState(''); 
+    const [mode, setMode] = useState('');
+    const [foodName, setFoodName] = useState('');
+    const [foodCategory, setFoodCategory] = useState('');
+    const [expiryDate, setExpiryDate] = useState('');
     const webcamContainerRef = useRef(null);
     const URL = "model/";
 
@@ -153,27 +155,53 @@ const ImageAnalyzer = () => {
 
     const handleBackButton = () => {
         setMode('');
+        setChosenItem(null);
+        window.location.reload();
+    };
+
+
+    const handleFoodNameChange = (e) => setFoodName(e.target.value);
+    const handleFoodCategoryChange = (e) => setFoodCategory(e.target.value);
+    const handleExpiryDateChange = (e) => setExpiryDate(e.target.value);
+
+    const handleManualSubmit = () => {
+        if (!foodName || !foodCategory || !expiryDate) {
+            alert("Please fill out all fields.");
+            return;
+        }
+        console.log({
+            foodName,
+            foodCategory,
+            expiryDate
+        });
+        // Here you can add logic to send this data to the API or store it locally
     };
 
     return (
         <div className="camera-page">
             {!mode && (
                 <div className="buttons4">
-                    <button onClick={() => setMode('webcam')}>Use Webcam</button>
+                    <button onClick={() => {setMode('webcam'); startWebcam()}}>Use Webcam</button>
                     <button onClick={() => setMode('upload')}>Upload Pic</button>
                     <button onClick={() => setMode('manual')}>Manual Input</button>
                 </div>
             )}
-            {mode !== '' && (
-                <button onClick={handleBackButton}>Back</button>
-            )}
+            
             {mode === 'webcam' && (
                 <div>
-                    <button onClick={startWebcam}>Start Webcam</button>
-                    <button onClick={stopWebcam}>Stop Webcam</button>
                     <div ref={webcamContainerRef}></div>
+                    <div>
+                        {prediction && (
+                            <div>
+                                <h3>Prediction</h3>
+                                <p>{prediction.className}</p>
+                                <button onClick={handleChooseItem}>Choose This Item</button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             )}
+
             {mode === 'upload' && (
                 <div>
                     <label htmlFor="file-upload" className="custom-file-button">
@@ -185,34 +213,135 @@ const ImageAnalyzer = () => {
                         accept="image/*"
                         onChange={handleImageUpload}
                     />
+                    <div style={{marginTop: '3vh'}}>
+                        {imageSrc && <img src={imageSrc} alt="uploaded" style={{ width: '200px', marginTop: '10px' }} />}
+                    </div>
+                    {prediction && (
+                        <div>
+                            <p style={{color: 'white', fontWeight: 'bold', scale: '1.5', marginTop: '3vh'}}>{prediction.className}</p>
+                            <div style={{marginTop: '6vh'}}>
+                                <button onClick={handleChooseItem}>Choose This Item</button>
+                            </div>
+                        </div>
+                    )}
+                    <div style={{marginTop: '8vh'}}>
+                    <button onClick={handleBackButton}>Back</button>
+                    </div>
                 </div>
             )}
+
             {mode === 'manual' && (
-                <div>
-                    <p>Manual input form will go here...</p>
+                <div className="manual-input">
+                    <h2 style={{color: 'white'}}>Enter Food Details</h2>
+                    <form onSubmit={(e) => { e.preventDefault(); handleManualSubmit(); }}>
+                        <div>
+                            <label>Food Name:  </label>
+                            <input
+                                type="text"
+                                value={foodName}
+                                onChange={handleFoodNameChange}
+                                placeholder="Enter food name"
+                            />
+                        </div>
+                        <div>
+                            <div>
+                                <input
+                                    type="radio"
+                                    id="fruit"
+                                    name="category"
+                                    value="Fruit"
+                                    checked={foodCategory === 'Fruit'}
+                                    onChange={handleFoodCategoryChange}
+                                />
+                                <label htmlFor="fruit">Fruit</label>
+                                <input
+                                    type="radio"
+                                    id="vegetable"
+                                    name="category"
+                                    value="Vegetable"
+                                    checked={foodCategory === 'Vegetable'}
+                                    onChange={handleFoodCategoryChange}
+                                />
+                                <label htmlFor="vegetable">Vegetable</label>
+                                <input
+                                    type="radio"
+                                    id="seafood"
+                                    name="category"
+                                    value="Seafood"
+                                    checked={foodCategory === 'Seafood'}
+                                    onChange={handleFoodCategoryChange}
+                                />
+                                <label htmlFor="seafood">Seafood</label>
+                                <input
+                                    type="radio"
+                                    id="meat"
+                                    name="category"
+                                    value="Meat"
+                                    checked={foodCategory === 'Meat'}
+                                    onChange={handleFoodCategoryChange}
+                                />
+                                <label htmlFor="meat">Meat</label>
+                                <input
+                                    type="radio"
+                                    id="grain"
+                                    name="category"
+                                    value="Grain"
+                                    checked={foodCategory === 'Grain'}
+                                    onChange={handleFoodCategoryChange}
+                                />
+                                <label htmlFor="grain">Grain</label>
+                                <input
+                                    type="radio"
+                                    id="dairy"
+                                    name="category"
+                                    value="Dairy"
+                                    checked={foodCategory === 'Dairy'}
+                                    onChange={handleFoodCategoryChange}
+                                />
+                                <label htmlFor="dairy">Dairy</label>
+                                <input
+                                    type="radio"
+                                    id="processed-food"
+                                    name="category"
+                                    value="Processed Food"
+                                    checked={foodCategory === 'Processed Food'}
+                                    onChange={handleFoodCategoryChange}
+                                />
+                                <label htmlFor="processed-food">Processed Food</label>
+                                <input
+                                    type="radio"
+                                    id="other"
+                                    name="category"
+                                    value="Other"
+                                    checked={foodCategory === 'Other'}
+                                    onChange={handleFoodCategoryChange}
+                                />
+                                <label htmlFor="other">Other</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Expiry Date: </label>
+                            <input
+                                type="date"
+                                value={expiryDate}
+                                onChange={handleExpiryDateChange}
+                            />
+                        </div>
+                        <div>
+                            <button type="submit">Submit</button>
+                        </div>
+                        <button onClick={handleBackButton}>Back</button>
+
+                    </form>
                 </div>
             )}
-            {imageSrc && <img src={imageSrc} alt="uploaded" style={{ width: '200px', marginTop: '10px' }} />}
-
-            <div id="label-container" style={{ marginTop: '20px' }}>
-                {prediction ? (
-                    <div>
-                        {prediction.className}
-                    </div>
-                ) : (
-                    null
-                )}
-            </div>
-
-            <button onClick={handleChooseItem}>Choose Item</button>
-
+            
             {chosenItem && (
-                <div style={{ marginTop: '20px' }}>
-                    <strong>Chosen Item:</strong>
-                    <div>
-                        {chosenItem.className}
+                <div>
+                    <div style={{marginBottom: '4vh', marginTop: '6vh'}}>
+                        <button onClick={handleSendToApi}>Add {chosenItem.className} to fridge?</button>
                     </div>
-                    <button onClick={handleSendToApi}>Send to API</button>
+                    <button onClick={handleBackButton}>Back</button>
                 </div>
             )}
         </div>

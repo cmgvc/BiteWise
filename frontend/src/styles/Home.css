@@ -100,6 +100,7 @@
 
 .fourth-page {
     background-image: url('../assets/bkgd4.png');
+    height: 140vh !important;
 }
 
 .first-page, .second-page, .third-page, .fourth-page {
@@ -117,7 +118,7 @@
     font-size: 8vh;
     color: white;
     text-align: center;
-    padding-top: 22vh;
+    padding-top: 10vh;
 }
 
 .webcam {
@@ -134,8 +135,9 @@
 .buttons4 {
     display: flex;
     flex-direction: row;
+    padding-top: 10vh;
     button {
-        margin: 0 2vw;
+        margin: 0 6vw;
     }
 }
 
@@ -280,4 +282,50 @@ input[type="file"] {
     font-size: 14px;
   }
   
-  
+  .webcam-page {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    button {
+        margin: 1vh 2vw;
+    }
+  }
+
+  .webcam-lens {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: -8vh;
+  }
+
+  .webcam-toggle {
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start;
+    gap: 20px; 
+}
+
+.prediction-display {
+    font-family: 'FatFrank_Heavy';
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+.manual-input {
+    margin-top: -5vh;
+}
+
+.manual-input input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-top: 3vh;
+}
+
+.manual-input button {
+    margin-top: 5vh;
+}
