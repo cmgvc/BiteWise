@@ -9,7 +9,6 @@ CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_cred
 
 @app.route('/')
 def home():
-
     return "Hello, Flask!"
 
 @app.route('/add_items', methods=['POST'])
@@ -25,10 +24,18 @@ def add_items_route():
         return jsonify({"message": "Items added successfully!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-app.route('/view_items', methods=['GET'])(view_items)
-app.route('/delete_item', methods=['DELETE'])(delete_item)
-app.route('/get_recipes', methods=['GET'])(get_recipes)
+
+@app.route('/view_items', methods=['GET'])
+def view_items_route():
+    return view_items()
+
+@app.route('/delete_item', methods=['DELETE'])
+def delete_item_route():
+    return delete_item()
+
+@app.route('/get_recipes', methods=['GET'])
+def get_recipes_route():
+    return get_recipes()
 
 if __name__ == "__main__":
     app.run(debug=True)
