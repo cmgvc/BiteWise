@@ -71,6 +71,29 @@
     background-image: url('../assets/bkgd2.png');
 }
 
+.title2 {
+    flex-direction: column;
+    justify-content: center;
+    font-family: "FatFrank_Heavy";
+    letter-spacing: 2px;
+    font-size: 8vh;
+    color: rgb(242, 202, 83);
+    text-align: center;
+    padding-top: 15vh;
+}
+
+.login-prompt button {
+    background-color: rgb(242, 202, 83);
+    font-family: 'Ubuntu', sans-serif;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 70px;
+    padding: 2vh 1.6vw;
+    cursor: pointer;
+    scale: 1.1;
+    margin-top: 18vh;
+}
+
 .third-page {
     background-image: url('../assets/bkgd3.png');
 }
@@ -86,7 +109,175 @@
     height: 100vh;
 }
 
-.webcam {
-    padding-top: 20vh;
+.title4 {
+    flex-direction: column;
+    justify-content: center;
+    font-family: "FatFrank_Heavy";
+    letter-spacing: 2px;
+    font-size: 8vh;
+    color: white;
+    text-align: center;
+    padding-top: 22vh;
 }
 
+.webcam {
+    padding-top: 15vh;
+}
+
+.camera-page {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.buttons4 {
+    display: flex;
+    flex-direction: row;
+    button {
+        margin: 0 2vw;
+    }
+}
+
+.camera-page button {
+    background-color: #EF466F;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    border: none;
+    border-radius: 70px;
+    padding: 2vh 1.6vw;
+    cursor: pointer;
+    scale: 1.1;
+    margin-top: -1vh;
+}
+
+.camera-page button:hover {
+    background-color: #e83d76;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-button {
+    background-color: #EF466F;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    border: none;
+    border-radius: 70px;
+    padding: 2vh 1.6vw;
+    cursor: pointer;
+    scale: 1.1;
+    margin-top: -1vh;
+}
+
+.custom-file-button:hover {
+    background-color: #e83d76;
+}
+
+.custom-file-button i {
+    margin-right: 8px;
+}
+
+.blurred {
+    filter: blur(6px);
+    pointer-events: none; 
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 25px;
+    width: 35vw;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+  }
+  
+  .modal h2 {
+    font-family: "FatFrank_Heavy";
+    color: rgb(113, 29, 209);
+    margin-bottom: 20px;
+    scale: 1.3;
+  }
+  
+  .modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .modal input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  
+  .modal button[type="submit"] {
+    background-color: rgb(113, 29, 209);
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    border: none;
+    border-radius: 70px;
+    padding: 1vh 1.6vw;
+    cursor: pointer;
+    scale: 1.1;
+    margin: 0 10vw;
+  }
+  
+  .modal button[type="submit"]:hover {
+    background-color: rgb(88, 18, 168);
+  }
+  
+  .toggle-link {
+    font-family: 'Ubuntu', sans-serif;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    scale: 1.1;
+    color: rgb(113, 29, 209)
+  }
+  
+  .toggle-link:hover {
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  .close-button {
+    font-family: 'Ubuntu', sans-serif;
+    color: black;
+    cursor: pointer;
+    scale: 1.1;
+  }
+  
+  .close-button:hover {
+    color: rgb(99, 99, 99);
+  }
+  
+  .modal p {
+    margin-top: 15px;
+    font-size: 14px;
+  }
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  

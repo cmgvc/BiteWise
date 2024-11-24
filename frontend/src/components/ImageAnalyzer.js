@@ -3,6 +3,7 @@ import * as tmImage from '@teachablemachine/image';
 import '@tensorflow/tfjs';
 import axios from 'axios';
 import { addItemToData } from '../api.js';
+import '../styles/Home.css';
 
 const ImageAnalyzer = () => {
     const [model, setModel] = useState(null);
@@ -10,8 +11,9 @@ const ImageAnalyzer = () => {
     const [imageSrc, setImageSrc] = useState(null);
     const [isWebcamActive, setIsWebcamActive] = useState(false);
     const [chosenItem, setChosenItem] = useState(null);
+    const [mode, setMode] = useState(''); 
     const webcamContainerRef = useRef(null);
-    const URL = "model/"; 
+    const URL = "model/";
 
     let webcam, labelContainer, maxPredictions;
 
@@ -32,11 +34,11 @@ const ImageAnalyzer = () => {
     }, []);
 
     const initWebcam = async () => {
-        if (webcam) return; 
+        if (webcam) return;
 
         try {
             console.log("Setting up webcam...");
-            webcam = new tmImage.Webcam(200, 200, true); 
+            webcam = new tmImage.Webcam(200, 200, true);
             await webcam.setup();
             console.log("Webcam setup completed");
 
@@ -107,8 +109,8 @@ const ImageAnalyzer = () => {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setImageSrc(reader.result); 
-                predictImage(reader.result); 
+                setImageSrc(reader.result);
+                predictImage(reader.result);
             };
             reader.readAsDataURL(file);
         }
@@ -143,39 +145,62 @@ const ImageAnalyzer = () => {
 
     const handleSendToApi = () => {
         if (chosenItem) {
-            addItemToData([chosenItem.className], 'Chloe'); 
+            addItemToData([chosenItem.className], 'Chloe');
         } else {
             console.error("No item chosen to send.");
         }
     };
 
-    return (
-        <div>
-            <button onClick={() => setIsWebcamActive(!isWebcamActive)}>
-                {isWebcamActive ? 'Switch to Manual Upload' : 'Use Webcam'}
-            </button>
+    const handleBackButton = () => {
+        setMode('');
+    };
 
-            {isWebcamActive ? (
+    return (
+        <div className="camera-page">
+            {!mode && (
+                <div className="buttons4">
+                    <button onClick={() => setMode('webcam')}>Use Webcam</button>
+                    <button onClick={() => setMode('upload')}>Upload Pic</button>
+                    <button onClick={() => setMode('manual')}>Manual Input</button>
+                </div>
+            )}
+            {mode !== '' && (
+                <button onClick={handleBackButton}>Back</button>
+            )}
+            {mode === 'webcam' && (
                 <div>
                     <button onClick={startWebcam}>Start Webcam</button>
                     <button onClick={stopWebcam}>Stop Webcam</button>
                     <div ref={webcamContainerRef}></div>
                 </div>
-            ) : (
+            )}
+            {mode === 'upload' && (
                 <div>
-                    <input type="file" accept="image/*" onChange={handleImageUpload} />
+                    <label htmlFor="file-upload" className="custom-file-button">
+                        <i className="fas fa-upload"></i> Upload Your Files
+                    </label>
+                    <input
+                        id="file-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                    />
                 </div>
             )}
-
+            {mode === 'manual' && (
+                <div>
+                    <p>Manual input form will go here...</p>
+                </div>
+            )}
             {imageSrc && <img src={imageSrc} alt="uploaded" style={{ width: '200px', marginTop: '10px' }} />}
-            
+
             <div id="label-container" style={{ marginTop: '20px' }}>
                 {prediction ? (
                     <div>
                         {prediction.className}
                     </div>
                 ) : (
-                    <div>No predictions yet.</div>
+                    null
                 )}
             </div>
 
