@@ -23,9 +23,11 @@
 
 .nav-links {
     a {
-        color: rgb(0, 0, 0);;
+        font-family: 'FatFrank_Heavy';
+        color: #EF466F;;
         padding: 0 2vw;
         text-decoration: none;
+        font-size: 4vh
     }
     a:hover {
         color: rgb(126, 126, 126);

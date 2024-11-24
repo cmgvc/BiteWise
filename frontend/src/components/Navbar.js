@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "../styles/Navbar.css";
+import logo from '../assets/logo.png'; 
+
 
 export default function Navbar({ setIsModalOpen, isLoggedIn, username, handleLogout }) {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -26,11 +28,10 @@ export default function Navbar({ setIsModalOpen, isLoggedIn, username, handleLog
   return (
     <div className="Nav">
       <div className="nav-logo">
-        <a href="/">BiteWise</a>
+        <a href="/"><img style={{width: '100px', height: '3.5rem', marginBottom: '0vh'}} src={logo} alt="BiteWise"></img></a>
       </div>
       <div className="nav-links">
         <a href="/">Home</a>
-        <a href="/fridge">Fridge</a>
       </div>
       <div className="login">
         {isLoggedIn ? (

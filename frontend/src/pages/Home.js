@@ -60,12 +60,12 @@ function Home() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setError("");  // Clear error when modal is closed
+    setError("");  
   };
 
   const handleToggleForm = () => {
     setIsRegister(prev => !prev);
-    setError("");  // Clear error when toggling between forms
+    setError("");  
   };
 
   const handleLogout = () => {
@@ -117,7 +117,8 @@ function Home() {
         <div className='fourth-page'>
           <div className="title4">Add your groceries</div>
           <div className="webcam">
-            <ImageAnalyzer />
+            <ImageAnalyzer
+              setIsModalOpen={setIsModalOpen} />
           </div>
         </div>
       </div>

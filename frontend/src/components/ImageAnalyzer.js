@@ -4,7 +4,7 @@ import axios from 'axios';
 import { addItemToData } from '../api.js';
 import '../styles/Home.css';
 
-const ImageAnalyzer = () => {
+const ImageAnalyzer = ({setIsModalOpen}) => {
     const [model, setModel] = useState(null);
     const [prediction, setPrediction] = useState(null);
     const [imageSrc, setImageSrc] = useState(null);
@@ -16,6 +16,7 @@ const ImageAnalyzer = () => {
     const [expiryDate, setExpiryDate] = useState('');
     const webcamContainerRef = useRef(null);
     const URL = "model/";
+    const user = localStorage.getItem('user');
 
     let webcam, labelContainer, maxPredictions;
 
@@ -40,7 +41,7 @@ const ImageAnalyzer = () => {
 
         try {
             console.log("Setting up webcam...");
-            webcam = new tmImage.Webcam(200, 200, true);
+            webcam = new tmImage.Webcam(400, 200, true);
             await webcam.setup();
             console.log("Webcam setup completed");
 
@@ -99,13 +100,6 @@ const ImageAnalyzer = () => {
         }
     };
 
-    const stopWebcam = () => {
-        if (webcam) {
-            webcam.stop();
-        }
-        setIsWebcamActive(false);
-    };
-
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -147,7 +141,12 @@ const ImageAnalyzer = () => {
 
     const handleSendToApi = () => {
         if (chosenItem) {
-            addItemToData([chosenItem.className], 'Chloe');
+            if (!user) {
+                console.error("No user logged in.");
+                setIsModalOpen(true);   
+                return;
+            }
+            addItemToData([chosenItem.className],  user);
         } else {
             console.error("No item chosen to send.");
         }
@@ -169,12 +168,13 @@ const ImageAnalyzer = () => {
             alert("Please fill out all fields.");
             return;
         }
+        setChosenItem(foodName);
+        handleSendToApi();
         console.log({
             foodName,
             foodCategory,
             expiryDate
         });
-        // Here you can add logic to send this data to the API or store it locally
     };
 
     return (
@@ -190,10 +190,9 @@ const ImageAnalyzer = () => {
             {mode === 'webcam' && (
                 <div>
                     <div ref={webcamContainerRef}></div>
-                    <div>
+                    <div className='label-container' id="label-container">
                         {prediction && (
                             <div>
-                                <h3>Prediction</h3>
                                 <p>{prediction.className}</p>
                                 <button onClick={handleChooseItem}>Choose This Item</button>
                             </div>
@@ -224,9 +223,7 @@ const ImageAnalyzer = () => {
                             </div>
                         </div>
                     )}
-                    <div style={{marginTop: '8vh'}}>
-                    <button onClick={handleBackButton}>Back</button>
-                    </div>
+                    
                 </div>
             )}
 
@@ -327,10 +324,6 @@ const ImageAnalyzer = () => {
                                 onChange={handleExpiryDateChange}
                             />
                         </div>
-                        <div>
-                            <button type="submit">Submit</button>
-                        </div>
-                        <button onClick={handleBackButton}>Back</button>
 
                     </form>
                 </div>
@@ -341,9 +334,14 @@ const ImageAnalyzer = () => {
                     <div style={{marginBottom: '4vh', marginTop: '6vh'}}>
                         <button onClick={handleSendToApi}>Add {chosenItem.className} to fridge?</button>
                     </div>
+                </div>
+            )}
+            {mode !== '' && (
+                <div style={{marginTop: '6vh'}}>
                     <button onClick={handleBackButton}>Back</button>
                 </div>
             )}
+            
         </div>
     );
 };
