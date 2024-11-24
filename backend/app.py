@@ -1,12 +1,11 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from controllers.recipe_controller import get_recipes, get_recipe_by_id
 from controllers.grocery_controller import add_items, view_items, delete_item
 from controllers.auth_controller import login, register
-import requests
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
+CORS(app)
 
 @app.route('/')
 def home():
@@ -62,7 +61,7 @@ def login_route():
 @app.route('/register', methods=['POST'])
 def handle_register():
     try:
-        data = request.get_json()  #
+        data = request.get_json()  
         print(f"Received data: {data}")
         username = data['username']
         email = data['email']
@@ -77,7 +76,6 @@ def handle_register():
         return jsonify({"error": f"Missing parameter: {str(e)}"}), 400
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 if __name__ == "__main__":
     app.run(debug=True)
