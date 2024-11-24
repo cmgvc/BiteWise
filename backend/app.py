@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from controllers.recipe_controller import get_recipes, get_recipe_by_id
-from controllers.grocery_controller import add_items, view_items, delete_item
+from controllers.grocery import add_items, view_items
 from controllers.auth_controller import login, register
 
 app = Flask(__name__)
@@ -29,9 +29,9 @@ def add_items_route():
 def view_items_route():
     return view_items()
 
-@app.route('/delete_item', methods=['DELETE'])
-def delete_item_route():
-    return delete_item()
+# @app.route('/delete_item', methods=['DELETE'])
+# def delete_item_route():
+#     return delete_item()
 
 @app.route('/get_recipes', methods=['GET'])
 def get_recipes_route():
