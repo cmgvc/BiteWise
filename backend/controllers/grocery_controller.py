@@ -1,38 +1,11 @@
 from flask import request, jsonify
 import csv
 import pandas as pd
-<<<<<<< HEAD
-=======
 
 def add_items(image_items, user):
     """
     Append items from `image_items` to the "Food Item" column in 'fridge.csv' according to user.
 
-    Args:
-        image_items (list of str): List of items to be added.
-        user (str): Person who's added the items to their fridge
-    """
-    df = pd.read_csv("fridge.csv")
-    new_data = pd.DataFrame({"Food Item": image_items, "User": [user] * len(image_items)})
-    new_data.to_csv('fridge.csv', mode='a', index=False, header=False, encoding='utf-8')
-
-def view_items(user):
-    """
-    View all items by user.
-
-    Args:
-        user (str): Person who's added the items to their fridge
-    """
-    df = pd.read_csv("fridge.csv")
-    user_items = df[df["User"] == user]
-    print(user_items["Food Item"].to_string(index=False))
->>>>>>> main
-
-def add_items(image_items, user):
-    """
-    Append items from `image_items` to the "Food Item" column in 'fridge.csv' according to user.
-
-<<<<<<< HEAD
     Args:
         image_items (list of str): List of items to be added.
         user (str): Person who's added the items to their fridge
@@ -89,11 +62,7 @@ def delete_item(food_name, username):
         return f"Food item '{food_name}' was successfully removed for user '{username}'."
     else:
         return f"Food item '{food_name}' was not found for user '{username}'."
-=======
 
-def delete_item():  
-    return "delete_item"
->>>>>>> main
 
 def main():
     user1 = "Emily"
@@ -113,8 +82,4 @@ def main():
             output_writer.writerow([item])
     """
 if __name__ == "__main__":
-<<<<<<< HEAD
     main()
-=======
-    main()
->>>>>>> main
