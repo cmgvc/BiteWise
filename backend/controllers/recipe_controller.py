@@ -17,10 +17,15 @@ def get_recipes(ingredients_list):
     response = requests.get(url)
     data = response.json()
     
-    recipes = {recipe['id']: recipe['title'] for recipe in data}
-    print(recipes)
-    # returns a dictionary of recipes, key is id, value is name
-    return recipes
+    recipe_return = []
+    for recipe in data:
+        current_id = recipe['id']
+        current_recipe = get_recipe_by_id(current_id)
+        recipe_return.append(current_recipe)
+    
+    #print(recipe_return)
+    return {"recipes": recipe_return}
+    
     
 def get_recipe_by_id(id_num):
     url = f"https://api.spoonacular.com/recipes/{id_num}/information?apiKey=a6fb9076765142499de63cdfa13fff0a"
@@ -58,3 +63,4 @@ def get_recipe_by_id(id_num):
     print(recipe_details)
 
     return recipe_details
+
